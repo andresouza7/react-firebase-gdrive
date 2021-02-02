@@ -5,12 +5,11 @@ import { database } from "../../firebase"
 import { useAuth } from "../../contexts/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+import {ROOT_FOLDER} from "../../hooks/useFolder"
 
 function AddFolderButton({ currentFolder }) {
     const [name, setName] = useState("")
     const [modalOpen, setModalOpen] = useState(false)
-
-    console.log(currentFolder)
 
     const { currentUser } = useAuth()
 
@@ -26,11 +25,19 @@ function AddFolderButton({ currentFolder }) {
         }
         // if not inside a folder, do nothing
         if (currentFolder == null) return onExit()
+
+        // get folder path
+        const path = [...currentFolder.path]
+        if (currentFolder !== ROOT_FOLDER) {
+            path.push({ name: currentFolder.name, id: currentFolder.id })
+        }
+
+        // add to db
         database.folders.add({
             name: name,
             parentId: currentFolder.id,
             userId: currentUser.uid,
-            // path,
+            path: path,
             createdAt: database.getCurrentTimestamp()
         })
         onExit()
@@ -38,9 +45,8 @@ function AddFolderButton({ currentFolder }) {
 
     return (
         <>
-            <Button onClick={toggleModal} variant="outline-success" size="sm">
-                <FontAwesomeIcon icon={faFolderPlus} />{'  '}
-                Add folder
+            <Button onClick={toggleModal} variant="outline-primary" size="sm">
+                <FontAwesomeIcon icon={faFolderPlus} />
             </Button>
             <Modal show={modalOpen} onHide={toggleModal} centered>
                 <Form onSubmit={handleSubmit}>

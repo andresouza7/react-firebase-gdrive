@@ -1,26 +1,31 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Navbar from "./Navbar"
-import {Container} from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import AddFolderButton from "./AddFolderButton"
 import AddFileButton from "./AddFileButton"
+import { useFolder } from "../../hooks/useFolder"
+import { useParams } from "react-router-dom"
+import FolderBreadcrumb from "./FolderBreadcrumb"
 import List from "./List"
-import {useFolder} from "../../hooks/useFolder"
-import Folder from "./Folder"
 
 function Dashboard() {
-
-    const {folder, childFolders} = useFolder('cp2vMCRvRECHZuEGoA5U')
-    console.log(childFolders)
-    // const {folder} = useFolder()
+    const { folderId } = useParams()
+    const { folder, childFolders, childFiles } = useFolder(folderId)
 
     return (
         <>
             <Navbar />
             <Container fluid>
-                <AddFolderButton currentFolder={folder} />
-                {folder && <Folder folder={folder} />}
-                {childFolders.length > 0 && 
-                   <List items={childFolders} />
+                <div className="d-flex align-items-center">
+                    <FolderBreadcrumb currentFolder={folder} />
+                    <AddFileButton currentFolder={folder} />
+                    <AddFolderButton currentFolder={folder} />
+                </div>
+                {childFolders.length > 0 &&
+                    <List items={childFolders} />
+                }
+                {childFiles.length > 0 &&
+                    <List items={childFiles} isFile />
                 }
             </Container>
         </>

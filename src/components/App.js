@@ -20,6 +20,7 @@ function App() {
         <Switch>
           {/* Drive */}
           <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute path="/folder/:folderId" component={Dashboard} />
 
           <CenteredContainer>
             {/* Profile */}
