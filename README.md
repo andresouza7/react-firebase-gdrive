@@ -1,8 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React-Firebase-GDrive
+This project is a google-drive-ish app with some basic functionality, based on WebDevSimplified's [react-firebase-google-drive-clone](https://github.com/WebDevSimplified/firebase-google-drive-clone).
 
-## Available Scripts
+## Built with
 
-In the project directory, you can run:
+- React
+- React routing
+- React bootstrap
+- Firebase (Auth, Firestore, Storage)
+- Fontawesome icons for styling
+
+## Installation
+
+Run `npm install` to inject all package dependencies. Also, this project uses .env to store all google keys so just setup a google web app and fill the env file with your project's info.
+
+## Scripts
 
 ### `npm start`
 
@@ -11,11 +22,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -27,42 +33,35 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Current functionality
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### User authentication using email and password
+It is possible to register, login, logout and reset password
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Folder creation and listing
+User can create folders and subfolders. Access rules only allow each user to see their own content and save to their own folders.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### File upload
+User can upload a file to a selected folder and it will show up in the filelist. Currently there is no access rules for user files.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Feats to work on
 
-## Learn More
+### ui/ux stuff
+- breadcrumb flashing issue
+- implement progress bar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Managing file names
+** this actually means restructuring the way data is stored in the db, so a bit more work<br/>
+allow user to:
+- rename a folder
+- rename a file
+- delete a single folder with all nested content
+- delete multiple files selected by the user
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### firestore config
+- setup firestore access rules to only allow registered users
+- generate a link to share a file with anyone that is not registered
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Auth
+- Google oauth
+- Facebook oauth
