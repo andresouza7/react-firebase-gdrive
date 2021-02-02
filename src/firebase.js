@@ -1,5 +1,6 @@
 import firebase from "firebase/app"
 import "firebase/auth"
+import "firebase/firebase-firestore"
 
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,6 +11,15 @@ const app = firebase.initializeApp({
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 })
+
+export const database = {
+  folders: app.firestore().collection('folders'),
+  files: app.firestore().collection('files'),
+  getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp,
+  formatDoc: doc => {
+    return { id: doc.id, ...doc.data() }
+  }
+}
 
 export const auth = app.auth()
 export default app
